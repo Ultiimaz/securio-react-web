@@ -1,7 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
+import Header from "../components/Header";
 
 const Dashboard = props => {
-    return <div>welcome to the dashboard</div>
+    return <Fragment>
+        <Header/>
+    </Fragment>
 }
 
 export default Dashboard;

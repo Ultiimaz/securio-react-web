@@ -68,11 +68,13 @@ const useStyles = makeStyles((theme) =>
 );
 
  const Header = props => {
+     const classes = useStyles();
     return <AppBar position="static">
-        <Typography className={props.classes.title} variant="h6" noWrap>
+        <Typography className={classes.title} variant="h6" noWrap>
           Securio
+            Welcome, {props.user.first_name}
         </Typography>
     </AppBar>
 };
 
-export default withStyles(useStyles)(Header);
+export default Header;

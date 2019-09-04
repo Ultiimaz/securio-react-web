@@ -1,6 +1,6 @@
 import React from "react";
 
 export const Homepage = () => {
-    return <div>hello</div>
+    return <div>Landing page</div>
 
 };

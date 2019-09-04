@@ -1,9 +1,8 @@
-import {AppBar, createStyles, makeStyles, withStyles} from '@material-ui/core';
-import React from "react";
-import Typography from "@material-ui/core/Typography";
+import {AppBar, withStyles, Typography, makeStyles, createStyles} from '@material-ui/core';
+import React, {Component, useEffect, useState} from "react";
 import {fade} from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         grow: {
             flexGrow: 1,
@@ -67,14 +66,14 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
- const Header = props => {
-     const classes = useStyles();
-    return <AppBar position="static">
-        <Typography className={classes.title} variant="h6" noWrap>
-          Securio
-            Welcome, {props.user.first_name}
-        </Typography>
-    </AppBar>
-};
+const Header = (props) =>{
+        const classes = useStyles();
+        return <AppBar position="static">
+            <Typography className={classes.title} variant="h6" noWrap>
+                Securio
+                Welcome, {props.user.first_name}
+            </Typography>
+        </AppBar>
+}
 
 export default Header;

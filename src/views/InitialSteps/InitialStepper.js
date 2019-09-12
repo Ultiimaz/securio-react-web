@@ -126,7 +126,6 @@ const InitialStepper = () => {
                         )}
                     </React.Fragment>
                 </Paper>
-                <Copyright />
             </main>
         </React.Fragment>
     );

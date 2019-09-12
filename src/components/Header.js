@@ -1,5 +1,5 @@
-import {AppBar, withStyles, Typography, makeStyles, createStyles} from '@material-ui/core';
-import React, {Component, useEffect, useState} from "react";
+import {AppBar, Typography, makeStyles, createStyles} from '@material-ui/core';
+import React  from "react";
 import {fade} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>

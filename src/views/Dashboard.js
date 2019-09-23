@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import CardHeader from "@material-ui/core/CardHeader";
 import {List as ListIcon,Lock as LockIcon} from '@material-ui/icons/';
 import Avatar from "@material-ui/core/Avatar";
-import io from "socket.io-client";
 const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -39,15 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = props => {
 
-    // io.connect("http://localhost:8000/gateway");
-    // io.on('connection',(socket) =>{
-    //     let token = socket.handshake.query.token;
-    //
-    // });
-    // const hasMasterPassword = useSelector(state => state.user?state.user.hasMasterPassword: null);
-    // if(!hasMasterPassword){
-    //     return <InitialStepper/>
-    // }
     const administrations_sample = [{id: 1,name:"super lange administratie naam"},{id: 1,name:"piet",icon: "test"},{id: 1,name:"df"},{id: 1,name:"gf"},];
     const renderAdministrations = () => {
 

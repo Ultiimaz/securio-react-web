@@ -15,7 +15,7 @@
     "react-window": "^1.8.5",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "socket.io-client": "^2.2.0"
+    "pusher-js": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

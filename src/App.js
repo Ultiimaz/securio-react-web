@@ -8,11 +8,10 @@ import NewPassword from "./views/General/NewPassword";
 import { useDispatch} from "react-redux";
 import Authentication from "./views/Authentication";
 import AdministrationPage from "./views/AdministrationPage";
-
-import io from 'socket.io-client';
 import ListCredential from "./views/General/ListCredential";
+
 function App() {
-    const [authenticated,setAuthenticated] = useState(true);
+    const [authenticated,setAuthenticated] = useState(false);
     const [user,setUser] = useState({});
     const [token,setToken] = useState(null);
     const [error, setError] = useState(false);
@@ -23,7 +22,7 @@ function App() {
 
     // useEffect(() => {
     // if(token){
-    //     fetch("http://localhost/authenicate")
+    //     fetch("http://localhost/user")
     //         .then(response => {
     //             response = response.json();
     //             setUser(response.user);

@@ -39,11 +39,11 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = props => {
 
-    // io.connect("http://localhost:8000/gateway");
-    // io.on('connection',(socket) =>{
-    //     let token = socket.handshake.query.token;
-    //
-    // });
+    io.connect("http://localhost:8000/gateway");
+    io.on('connection',(socket) =>{
+        let token = socket.handshake.query.token;
+
+    });
     // const hasMasterPassword = useSelector(state => state.user?state.user.hasMasterPassword: null);
     // if(!hasMasterPassword){
     //     return <InitialStepper/>

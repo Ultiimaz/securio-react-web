@@ -9,18 +9,13 @@ const getAdministrationData = (id) => {
 const AdministrationPage = (props) => {
     const [administration,setAdministration] = useState();
     useEffect(() => {
-        setAdministration(getAdministrationData());
+        setAdministration(getAdministrationData(props.connection));
     },[props.match.params.administration]);
     getAdministrationData(props.match.params.administration);
     return <Grid container>
         <Grid item xs>
             <Card>
                 <ListAdministrationCredentials/>
-            </Card>
-        </Grid>
-        <Grid item xs>
-            <Card>
-            logs come here
             </Card>
         </Grid>
     </Grid>

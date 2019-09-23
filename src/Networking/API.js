@@ -13,7 +13,16 @@ export const API = {
     POSTRequest: (url:string,params:object = {},authenticated:boolean = true) =>Axios.post(URLConfig.protocol+'://'+URLConfig.address+'/'+url,params,!authenticated?undefined:{
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem(TokenProperties.name)
+            'Authorization': 'Bearer '+localStorage.getItem(TokenProperties.name)
         }
     }),
+    GETRequest: (url:string,params:object = {},authenticated:boolean = true) =>Axios.get(URLConfig.protocol+'://'+URLConfig.address+'/'+url,!authenticated?undefined:{
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem(TokenProperties.name)
+    }
+}),
+    user: () => {
+        return API.GETRequest('user');
+    },
 };

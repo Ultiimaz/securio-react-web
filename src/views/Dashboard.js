@@ -1,10 +1,8 @@
 import React, {Fragment} from "react";
-import {Card, CardContent, Typography, Button, makeStyles} from "@material-ui/core";
+import {Card, CardContent, Typography, Button, makeStyles,Avatar,Grid} from "@material-ui/core";
 import {withRouter} from 'react-router-dom';
-import Grid from "@material-ui/core/Grid";
-import CardHeader from "@material-ui/core/CardHeader";
 import {List as ListIcon,Lock as LockIcon} from '@material-ui/icons/';
-import Avatar from "@material-ui/core/Avatar";
+import {useSelector} from "react-redux";
 const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -32,21 +30,26 @@ const useStyles = makeStyles(theme => ({
         marginTop: 'calc(50% - 25px)',
     }
 
-    }
-));
+    }));
+
 
 
 const Dashboard = props => {
 
-    const administrations_sample = [{id: 1,name:"super lange administratie naam"},{id: 1,name:"piet",icon: "test"},{id: 1,name:"df"},{id: 1,name:"gf"},];
+    // const hasMasterPassword = useSelector(state => state.user?state.user.hasMasterPassword: null);
+    // if(!hasMasterPassword){
+    //     return <InitialStepper/>
+    // }
+    let administrations = useSelector(state => state.administrations);
+
     const renderAdministrations = () => {
 
-        return administrations_sample.map( administration =>
+        return administrations.map( administration =>
             (<Grid item>
                 <Card className={classes.card} >
                 <CardContent>
-                    <Typography>{administration.name} </Typography>
-                    <Avatar image={administration.logo} className={classes.avatar}>{administration.name[0].toUpperCase()}</Avatar>
+                    <Typography>{administration.administration_name} </Typography>
+                    <Avatar image={administration.logo} className={classes.avatar}>{administration.administration_name[0].toUpperCase()}</Avatar>
                     <Button variant={"contained"} color={"primary"} className={classes.button} onClick={() => props.history.replace("administration/"+administration.id)}>
                         Ga
                     </Button>

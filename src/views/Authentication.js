@@ -68,11 +68,14 @@ export default function Authentication(props) {
     const classes = useStyles();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
+    const [submitted,setSubmitted] = useState();
     let submitAuthentication = event => {
         event.preventDefault();
         console.log(email,password);
         API.authenticate(email,password).then(response => {
-            localStorage.setItem(TokenProperties.name,response.token);
+            localStorage.setItem(TokenProperties.name,response.data.token);
+            setSubmitted(true);
+            props.history.replace('/');
         }).catch(error => console.log(error));
     };
     return (

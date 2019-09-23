@@ -9,6 +9,8 @@ import { useDispatch} from "react-redux";
 import Authentication from "./views/Authentication";
 import AdministrationPage from "./views/AdministrationPage";
 import ListCredential from "./views/General/ListCredential";
+import {TokenProperties} from "./config/TokenProperties";
+import {API} from "./Networking/API";
 
 function App() {
     const [authenticated,setAuthenticated] = useState(false);
@@ -17,29 +19,29 @@ function App() {
     const [error, setError] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
-        setToken(localStorage.getItem('token'));
+        setToken(localStorage.getItem(TokenProperties.name));
     },[]);
 
-    // useEffect(() => {
-    // if(token){
-    //     fetch("http://localhost/user")
-    //         .then(response => {
-    //             response = response.json();
-    //             setUser(response.user);
-    //             dispatch({
-    //                 type: 'SET_USER_INFO',
-    //                 payload: response.user
-    //             });
-    //             setAuthenticated(true);
-    //         })
-    //         .catch(fetchError =>
-    //         {
-    //             setAuthenticated(false);
-    //         });
-    // }
-    //
-    //
-    // },[token]);
+    useEffect(() => {
+    if(token){
+
+            API.user()
+            .then(response => {
+                setUser(response.data);
+                dispatch({
+                    type: 'SET_USER_INFO',
+                    payload: response.data
+                });
+                setAuthenticated(true);
+            })
+            .catch(fetchError =>
+            {
+                setAuthenticated(false);
+            });
+    }
+
+
+    },[token]);
   if(!authenticated)
   {
       return<Router>

@@ -2,9 +2,10 @@ import Grid from "@material-ui/core/Grid";
 import {Button, Card, CardContent, makeStyles, Typography} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import React, {Fragment, useState} from "react";
-import {Add as AddIcon} from '@material-ui/icons';
+import {Add as AddIcon,Lock as LockIcon} from '@material-ui/icons';
 import Searchbar from "../../components/Searchbar";
 import {Link} from "react-router-dom";
+import CredentialDialog from "../../components/CredentialDialog";
 const useStyles = makeStyles(theme => ({
         paper: {
             padding: theme.spacing(2),
@@ -43,31 +44,48 @@ const useStyles = makeStyles(theme => ({
 
 const ListCredential = (props) => {
 
+    const test=  [
+        {
+            id: '1',
+            name:'World of Warcraft',
+            userCredential: 'test@test.nl',
+            password: 'SecretPassword123',
+            readable: true
+        },
+
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
+    ];
+
     const classes = useStyles();
-    const administrations_sample = [
-        {id: 1,name:"super lange administratie naam",icon: 'null'},
-        {id: 1,name:"piet",icon: "test"},
-        {id: 1,name:"df"},{id: 1,name:"gf"}
-        ];
-    const [credentials,setCredentials] = useState(administrations_sample);
+    const [credentials,setCredentials] = useState(test);
+    const [showCredential,setShowCredential] = useState();
+
     const renderCredentials = () => {
 
-        return credentials.map( administration =>
+        return credentials.map( credential =>
             (<Grid item>
-                    <Link to={"administration/"+administration.id} style={{ textDecoration: 'none' }} >
-                    <Card className={classes.card}  >
-                        <CardContent href={"administration/"+administration.id} >
-                            <Typography noWrap className={classes.credentialName}>{administration.name} </Typography>
-                            <Avatar image={administration.logo} className={classes.avatar}>{administration.name[0].toUpperCase()}</Avatar>
+                    <Card className={classes.card} onClick={() => setShowCredential(credential)}  >
+                        <CardContent >
+                            <Typography noWrap className={classes.credentialName}>{credential.name} </Typography>
+                            <Avatar image={credential.logo} className={classes.avatar}>{credential.name[0].toUpperCase()}</Avatar>
                         </CardContent>
                     </Card>
-                    </Link>
                 </Grid>
             ))
     };
-
+    if(showCredential)
+    {
+        return <CredentialDialog credential={showCredential} handleClose={()=> setShowCredential(null)}/>
+    }
     return <Fragment>
-        <Searchbar data={administrations_sample} result={filteredCredentials=> setCredentials(filteredCredentials)}/>
+        <Searchbar data={credentials} result={filteredCredentials=> setCredentials(filteredCredentials)}/>
         <Grid container>
         {renderCredentials()}
     </Grid></Fragment>

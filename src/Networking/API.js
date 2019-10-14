@@ -9,7 +9,22 @@ export const API = {
             password
         },false);
     },
-
+    register: (first_name,last_name,email,password) => {
+        return API.POSTRequest('register',{
+            first_name,
+            last_name,
+            email,
+            password
+        })
+    },
+    newPassword: (encrypted_data) => {
+        return API.POSTRequest('password',{
+            data: encrypted_data
+        })
+    },
+    user: () => {
+        return API.GETRequest('user');
+    },
     POSTRequest: (url:string,params:object = {},authenticated:boolean = true) =>Axios.post(URLConfig.protocol+'://'+URLConfig.address+'/'+url,params,!authenticated?undefined:{
         headers: {
             'Content-Type': 'application/json',
@@ -22,7 +37,17 @@ export const API = {
         'Authorization': 'Bearer '+localStorage.getItem(TokenProperties.name)
     }
 }),
-    user: () => {
-        return API.GETRequest('user');
-    },
+    UPDATERequest: (url:string,params:object = {},authenticated:boolean = true) =>Axios.post(URLConfig.protocol+'://'+URLConfig.address+'/'+url,params,!authenticated?undefined:{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem(TokenProperties.name)
+        }
+    }),
+    DELETERequest: (url:string,params:object = {},authenticated:boolean = true) =>Axios.post(URLConfig.protocol+'://'+URLConfig.address+'/'+url,params,!authenticated?undefined:{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem(TokenProperties.name)
+        }
+    }),
+
 };

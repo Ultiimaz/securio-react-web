@@ -6,6 +6,10 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import {API} from "../../Networking/API";
+import CryptoJS from 'crypto-js';
+import {useSelector} from "react-redux";
+import * as hibp from 'hibp';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -30,10 +34,27 @@ const NewPassword = props => {
     const [applicationUser,setApplicationUser] = useState("");
     const [administration,setAdministration] = useState('Administration 1');
     const [applicationPassword,setApplicationPassword] = useState("");
+    const [applicationLogo,setApplicationLogo] = useState();
+    const [breached,setBreached] = useState();
+    const master_password = useSelector(state => state.master_password);
     const handleSubmit = (event) => {
-        console.log("submit triggered",applicationUser,applicationDisplayName,applicationPassword)
+        event.preventDefault();
+        // console.log("submit triggered",applicationUser,applicationDisplayName,applicationPassword);
+        let data = {
+            user: applicationUser,
+            password: applicationPassword,
+            readable: true
+        };
+        let encryption = CryptoJS.AES.encrypt(JSON.stringify(data),"password").toString();
+        API.newPassword(encryption)
+            .then(response => {
+
+            }).catch(error =>{
+            // return error screen
+        });
+
     };
-    return <Fragment>
+    return <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} >
 
         <Grid container direction={"column"}>
@@ -82,10 +103,10 @@ const NewPassword = props => {
         : null}
         </Grid>
             <Grid item>
-                <Button onClick={handleSubmit} onSubmit={handleSubmit} variant={"contained"} color={"primary"}>Verstuur</Button>
+                <Button onClick={handleSubmit} variant={"contained"} color={"primary"}>Verstuur</Button>
             </Grid>
         </Paper>
-    </Fragment>
+    </form>
 }
 
 export default NewPassword;

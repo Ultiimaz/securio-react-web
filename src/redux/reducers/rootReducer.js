@@ -9,6 +9,10 @@ export const rootReducer = (state = {},action) =>{
         case "SET_USER_INFO":
             return state.user = action.payload;
 
+        case "SET_PASSWORDS":
+             state.passwords = action.payload;
+            return {...state};
+
         case "SET_MASTER_PASSWORD":
             state.master_password = action.payload;
             return {...state};

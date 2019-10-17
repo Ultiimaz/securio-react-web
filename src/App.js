@@ -37,11 +37,22 @@ function App() {
                     payload: response.data
                 });
                 setAuthenticated(true);
+
+                API.credentials()
+                    .then(response => {
+                        dispatch({
+                            type: 'SET_PASSWORDS',
+                            payload: response.data
+                        });
+                    }).catch(err=>{
+                    console.error(err);
+                });
             })
             .catch(fetchError =>
             {
                 setAuthenticated(false);
             });
+
     }
 
 

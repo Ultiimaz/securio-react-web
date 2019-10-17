@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import {API} from "../../Networking/API";
 import CryptoJS from 'crypto-js';
 import {useSelector} from "react-redux";
-import * as hibp from 'hibp';
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -39,14 +39,17 @@ const NewPassword = props => {
     const master_password = useSelector(state => state.master_password);
     const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log("submit triggered",applicationUser,applicationDisplayName,applicationPassword);
         let data = {
             user: applicationUser,
             password: applicationPassword,
             readable: true
         };
-        let encryption = CryptoJS.AES.encrypt(JSON.stringify(data),"password").toString();
-        API.newPassword(encryption)
+        let encryption = CryptoJS.AES.encrypt(JSON.stringify(data),master_password).toString();
+        console.log(encryption);
+
+        console.log(CryptoJS.AES.decrypt(encryption,master_password).toString(CryptoJS.enc.Utf8));
+
+        API.newPassword(applicationDisplayName,encryption)
             .then(response => {
 
             }).catch(error =>{

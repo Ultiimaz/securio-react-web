@@ -17,10 +17,14 @@ export const API = {
             password
         })
     },
-    newPassword: (encrypted_data) => {
+    newPassword: (application_name,encrypted_data) => {
         return API.POSTRequest('password',{
-            data: encrypted_data
+            data: encrypted_data,
+            application_name: application_name
         })
+    },
+    credentials: () => {
+        return API.GETRequest('password');
     },
     user: () => {
         return API.GETRequest('user');

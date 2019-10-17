@@ -6,12 +6,16 @@ import React, {useCallback, useState} from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Tooltip} from "@material-ui/core";
+import CryptoJS from 'crypto-js';
 
 const CredentialDialog = (props) => {
-
     const dispatch = useDispatch();
+    const master_password = useSelector(state => state.master_password);
+    console.log(props.credential);
+
+    console.log(CryptoJS.AES.decrypt(props.credential,master_password).toString(CryptoJS.enc.Utf8));
     const handleClose = () => {
         props.handleClose();
     };

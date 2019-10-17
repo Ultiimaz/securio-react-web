@@ -6,6 +6,8 @@ import {Add as AddIcon,Lock as LockIcon} from '@material-ui/icons';
 import Searchbar from "../../components/Searchbar";
 import {Link} from "react-router-dom";
 import CredentialDialog from "../../components/CredentialDialog";
+import {API} from "../../Networking/API";
+import {useSelector} from "react-redux";
 const useStyles = makeStyles(theme => ({
         paper: {
             padding: theme.spacing(2),
@@ -43,28 +45,8 @@ const useStyles = makeStyles(theme => ({
 ));
 
 const ListCredential = (props) => {
-
-    const test=  [
-        {
-            id: '1',
-            name:'World of Warcraft',
-            userCredential: 'test@test.nl',
-            password: 'SecretPassword123',
-            readable: true
-        },
-
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-        {id: '1',name:'World of Warcraft',user: 'test@test.nl',password: 'SecretPassword123'},
-    ];
-
     const classes = useStyles();
-    const [credentials,setCredentials] = useState(test);
+    const [credentials,setCredentials] = useState(useSelector(state=> state.passwords));
     const [showCredential,setShowCredential] = useState();
 
     const renderCredentials = () => {
@@ -72,9 +54,9 @@ const ListCredential = (props) => {
         return credentials.map( credential =>
             (<Grid item>
                     <Card className={classes.card} onClick={() => setShowCredential(credential)}  >
-                        <CardContent >
-                            <Typography noWrap className={classes.credentialName}>{credential.name} </Typography>
-                            <Avatar image={credential.logo} className={classes.avatar}>{credential.name[0].toUpperCase()}</Avatar>
+                        <CardContent>
+                            <Typography noWrap className={classes.credentialName}>{credential.application_name} </Typography>
+                            <Avatar image={credential.logo} className={classes.avatar}>{credential.application_name?credential.application_name[0].toUpperCase():null}</Avatar>
                         </CardContent>
                     </Card>
                 </Grid>

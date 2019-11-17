@@ -14,8 +14,13 @@ export const rootReducer = (state = {},action) =>{
             return {...state};
 
         case "SET_MASTER_PASSWORD":
-            state.master_password = action.payload;
-            return {...state};
+            if(!state.master_password){
+                state.master_password = [];
+            }
+            return {
+                ...state,
+                master_password: state.master_password.concat(action.payload)
+            };
 
         case "SET_ERROR":
             return state.error = action.payload;

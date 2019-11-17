@@ -3,6 +3,8 @@ import {Card, CardContent, Typography, Button, makeStyles,Avatar,Grid} from "@ma
 import {withRouter} from 'react-router-dom';
 import {List as ListIcon,Lock as LockIcon} from '@material-ui/icons/';
 import {useSelector} from "react-redux";
+import CardMedia from "@material-ui/core/CardMedia";
+import InitialStepper from "./InitialSteps/InitialStepper";
 const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -11,17 +13,15 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 500,
     },
     card: {
+        // media query?
         height: 250,
         width: 250,
         margin: 5,
     },
     avatar:{
-        left: 'calc(50% - 25px)',
-        top: 25,
-        marginTop: 'calc(25% - 50px)',
-        width: 75,
-        height: 75,
-        backgroundColor: 'green'
+        left: 'calc(50% - 75px)',
+        width: 150,
+        height: 150,
     },
     field: {
         margin: 10
@@ -36,29 +36,30 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = props => {
 
-    // const hasMasterPassword = useSelector(state => state.user?state.user.hasMasterPassword: null);
-    // if(!hasMasterPassword){
-    //     return <InitialStepper/>
-    // }
+    const hasPasswords = useSelector(state => state.passwords);
     let administrations = useSelector(state => state.administrations);
+    const classes = useStyles();
+    if(hasPasswords.length === 0){
+        return <InitialStepper/>
+    }
 
     const renderAdministrations = () => {
 
         return administrations.map( administration =>
             (<Grid item>
                 <Card className={classes.card} >
-                <CardContent>
-                    <Typography>{administration.administration_name} </Typography>
-                    <Avatar image={administration.logo} className={classes.avatar}>{administration.administration_name[0].toUpperCase()}</Avatar>
-                    <Button variant={"contained"} color={"primary"} className={classes.button} onClick={() => props.history.replace("administration/"+administration.id)}>
-                        Ga
-                    </Button>
-                </CardContent>
-            </Card>
-                </Grid>
+                    <CardContent>
+                        <Avatar src={administration.logo} className={classes.avatar}>
+                            {administration.administration_name[0].toUpperCase()}
+                        </Avatar>
+
+                        <Typography>{administration.administration_name} </Typography>
+                    </CardContent>
+
+                </Card>
+            </Grid>
             ))
     };
-    const classes = useStyles();
     return (<Fragment>
         <Grid container>
         <Card className={classes.card}>

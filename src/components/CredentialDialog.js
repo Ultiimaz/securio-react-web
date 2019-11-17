@@ -2,25 +2,32 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import React, {useCallback, useState} from "react";
+import React, { useState} from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import {useDispatch, useSelector} from "react-redux";
 import {Tooltip} from "@material-ui/core";
-import CryptoJS from 'crypto-js';
+import {decrypt} from "../utilities/Encryption";
+import MasterPasswordDialog from "./MasterPasswordDialog";
+
 
 const CredentialDialog = (props) => {
+    const [isPasswordShown,setPasswordShown] = useState(false);
+    const [copied,setCopied] = useState(false);
+    const [credential,setCredential] = useState();
     const dispatch = useDispatch();
     const master_password = useSelector(state => state.master_password);
-    console.log(props.credential);
 
-    console.log(CryptoJS.AES.decrypt(props.credential,master_password).toString(CryptoJS.enc.Utf8));
+    let master_password_list = useSelector(state => state.master_password);
+    let password = decrypt(props.credential.hash,master_password_list);
     const handleClose = () => {
         props.handleClose();
     };
-    const [isPasswordShown,setPasswordShown] = useState(false);
-    const [copied,setCopied] = useState(false);
+    if(!password.readable)
+    {
+        return <MasterPasswordDialog/>
+    }
     return (
         <Dialog open={true} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Show Password</DialogTitle>
